@@ -1,0 +1,35 @@
+<html>
+<head>
+<style>
+#gradient-display {
+	margin: 20px auto 20px 0;
+	width: 600px;
+	height: 30px;
+}
+
+</style>
+</head>
+<body>
+    <form style="margin-top: 20px">
+        <label for="colorGradient">Color Gradient</label>
+        <input type="text" size="200" id="colorGradient"  value="black, white, green, black, pink, white"></input>
+    </form>
+    <button onclick="docalc()">Apply Gradient Map</button>
+    <div id="gradient-display"></div>
+	<iframe id="target" src="http://commons.wikimedia.org/wiki/File:Bristol_Balloon_Fiesta_ascent.ogv" width="800px" height="600px"></iframe>
+    
+    <script src="../gradientmaps.min.js"></script>
+    
+    <script>
+        function docalc() {
+            var target = document.getElementById('target');
+            var gradient = document.getElementById('colorGradient').value;
+            GradientMaps.applyGradientMap(target, gradient);
+        
+            var gradientDisplay = document.getElementById('gradient-display');
+            gradientDisplay.style['background'] = 
+                '-webkit-linear-gradient(left,' + gradient + ')';
+        }
+    </script>
+</body>
+</html>

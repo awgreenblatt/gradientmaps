@@ -1,0 +1,40 @@
+<html>
+<head>
+<style>
+#target {
+    width: 600px;
+    height: 100px;
+    border:2px solid #b13636;
+    
+    background: rgb(0,0,0);
+    background: -moz-linear-gradient(left, rgba(0,0,0,1) 0%, rgba(255,255,255,1) 100%);
+    background: -webkit-gradient(linear, left top, right top, color-stop(0%,rgba(0,0,0,1)), color-stop(100%,rgba(255,255,255,1)));
+    background: -webkit-linear-gradient(left, rgba(0,0,0,1) 0%,rgba(255,255,255,1) 100%);
+    background: -o-linear-gradient(left, rgba(0,0,0,1) 0%,rgba(255,255,255,1) 100%);
+    background: -ms-linear-gradient(left, rgba(0,0,0,1) 0%,rgba(255,255,255,1) 100%);
+    background: linear-gradient(to right, rgba(0,0,0,1) 0%,rgba(255,255,255,1) 100%);
+}
+
+</style>
+</head>
+<body>
+	<div id="target"></div>
+    
+    <form style="margin-top: 20px">
+        <label for="colorGradient">Color Gradient</label>
+		<input type="text" size="200" id="colorGradient" value="black, gray 60%, pink, white"></input>
+    </form>
+    
+    <button onclick="colorize()">Apply Gradient Map</button>
+
+    <script src="../gradientmaps.min.js"></script>
+    
+    <script>
+        function colorize() {
+            var target = document.getElementById('target');
+            var gradient = document.getElementById('colorGradient').value;
+            GradientMaps.applyGradientMap(target, gradient);
+        }
+    </script>
+</body>
+</html>

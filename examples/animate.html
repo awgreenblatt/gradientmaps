@@ -1,0 +1,64 @@
+<html>
+<head>
+<style>
+#gradient-display {
+	margin: 20px auto 20px 0;
+	width: 600px;
+	height: 30px;
+}
+
+</style>
+</head>
+<body>
+	<img id="target" src="http://upload.wikimedia.org/wikipedia/commons/2/21/Neophron_percnopterus_-_01.jpg" width="600px" >
+	<div style="margin-bottom: 10px">By Kadellar (Own work) [<a href="http://creativecommons.org/licenses/by-sa/3.0">CC-BY-SA-3.0</a>], <a href="http://commons.wikimedia.org/wiki/File%3ANeophron_percnopterus_-_01.jpg">via Wikimedia Commons</a></div>
+
+	<button onclick="startAnim()">Start Animation</button>
+	<button onclick="stopAnim()">Stop Animation</button>
+    <div id="gradient-display"></div>
+
+    <script src="../gradientmaps.min.js"></script>
+    
+    <script>
+		function startAnim() {
+			window.continue_animating = true;
+			doAnim(10, 5);
+		}
+
+		function stopAnim() {
+			window.continue_animating = false;
+		}
+
+		function getGradient(val) {
+			var gradient = "black, yellow " + val + "%, blue " + (100-val) + "%, white";
+
+			return gradient;
+		}
+
+		function doAnim(val, incr) {
+			if (!window.continue_animating) return;
+
+			if (val >= 100) {
+				val = 99;
+				incr = -incr;
+			} else if (val <= 0) {
+				val = 1;
+				incr = -incr;
+			}
+
+            var target = document.getElementById('target');
+			var gradient = getGradient(val);
+            GradientMaps.applyGradientMap(target, gradient);
+        
+            var gradientDisplay = document.getElementById('gradient-display');
+            gradientDisplay.style['background'] = 
+                '-webkit-linear-gradient(left,' + gradient + ')';
+
+			val += incr;
+
+			setTimeout(doAnim, 100, val, incr);
+        }
+
+    </script>
+</body>
+</html>
