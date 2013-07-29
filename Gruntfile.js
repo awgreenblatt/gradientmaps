@@ -2,7 +2,7 @@ module.exports = function(grunt) {
   // Project configuration.
     
   var project = {
-    files: ['src/csscolorparser.js', 'src/gm-library.js']
+    files: ['src/gm-library.js', 'src/csscolorparser.js']
   }
     
   grunt.initConfig({

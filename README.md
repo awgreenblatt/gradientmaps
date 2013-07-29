@@ -1,6 +1,10 @@
 #  Gradientmaps.js 
 
-Javascript library that allows you to easily apply gradient maps to any element on the page.
+Javascript library that allows you to easily apply gradient maps to any HTML element on the page.
+
+## Browser Support
+
+This functionality is currently supported on desktop Chrome and Firefox
 
 ## What is a Gradient Map you ask?
 Traditionally, gradient maps are used in Photoshop.  Think about taking an image and converting it to grayscale.  Then, take a linear gradient and map that linear gradient to your image, where the left end of your gradient are the darkest values in your image, and the right end of your gradient maps to the brightest parts of your image.  If you have a simple linear gradient from red to blue, the darkest parts of your image will get mapped to red, the brightest parts will get mapped to blue, and everything else will be some combination of red and blue, depending on how light or dark it is.
