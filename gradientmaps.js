@@ -212,8 +212,8 @@ window.GradientMaps = function(scope) {
             return colors;
         },
         
-        addElement: function(parent, tagname, ns, attributes) {
-            var elem = ns ? document.createElementNS(ns, tagname) : document.createElement(tagname);
+        addElement: function(doc, parent, tagname, ns, attributes) {
+            var elem = ns ? doc.createElementNS(ns, tagname) : doc.createElement(tagname);
             if (attributes) {
                 Object.keys(attributes).forEach(function(key, index, keys) {
                     elem.setAttribute(key, attributes[key]);
@@ -233,8 +233,10 @@ window.GradientMaps = function(scope) {
         
             var svgIsNew = false;
         
+            var doc = elem.ownerDocument;
+            
             if (filterID) {
-                filter = document.getElementById(filterID);
+                filter = doc.getElementById(filterID);
                 if (filter) {
                     // Remove old component transfer function
                     var componentTransfers = filter.getElementsByTagNameNS(svgns, 'feComponentTransfer');
@@ -249,18 +251,18 @@ window.GradientMaps = function(scope) {
         
             // The last thing to be set previously is 'svg'.  If that is still null, that will handle any errors
             if (!svg) {
-                var svg = this.addElement(null, 'svg', svgns, {
+                var svg = this.addElement(doc, null, 'svg', svgns, {
                     'version': '1.1',
                     'width': 0,
                     'height': 0
                 });
         
                 filterID = 'filter-' + (new Date().getTime());
-                filter = this.addElement(svg, 'filter', svgns, {'id': filterID});
+                filter = this.addElement(doc, svg, 'filter', svgns, {'id': filterID});
                 elem.setAttribute('data-gradientmap-filter', filterID);
         
                 // First, apply a color matrix to turn the source into a grayscale
-                var colorMatrix = this.addElement(filter, 'feColorMatrix', svgns, {
+                var colorMatrix = this.addElement(doc, filter, 'feColorMatrix', svgns, {
                     'type': 'matrix',
                     'values': '0.2126 0.7152 0.0722 0 0 0.2126 0.7152 0.0722 0 0 0.2126 0.7152 0.0722 0 0 0 0 0 1 0',
                     'result': 'gray'
@@ -270,7 +272,7 @@ window.GradientMaps = function(scope) {
             }
         
             // Now apply a component transfer to remap the colors
-            var componentTransfer = this.addElement(filter, 'feComponentTransfer', svgns, {'color-interpolation-filters': 'sRGB'});
+            var componentTransfer = this.addElement(doc, filter, 'feComponentTransfer', svgns, {'color-interpolation-filters': 'sRGB'});
         
             var redTableValues = "";
             var greenTableValues = "";
@@ -284,13 +286,13 @@ window.GradientMaps = function(scope) {
                 alphaTableValues += (color[3] + " ");
             });
         
-            this.addElement(componentTransfer, 'feFuncR', svgns, {'type': 'table', 'tableValues': redTableValues.trim()});
-            this.addElement(componentTransfer, 'feFuncG', svgns, {'type': 'table', 'tableValues': greenTableValues.trim()});
-            this.addElement(componentTransfer, 'feFuncB', svgns, {'type': 'table', 'tableValues': blueTableValues.trim()});
-            this.addElement(componentTransfer, 'feFuncA', svgns, {'type': 'table', 'tableValues': alphaTableValues.trim()});
+            this.addElement(doc, componentTransfer, 'feFuncR', svgns, {'type': 'table', 'tableValues': redTableValues.trim()});
+            this.addElement(doc, componentTransfer, 'feFuncG', svgns, {'type': 'table', 'tableValues': greenTableValues.trim()});
+            this.addElement(doc, componentTransfer, 'feFuncB', svgns, {'type': 'table', 'tableValues': blueTableValues.trim()});
+            this.addElement(doc, componentTransfer, 'feFuncA', svgns, {'type': 'table', 'tableValues': alphaTableValues.trim()});
         
             if (svgIsNew)
-                document.body.insertBefore(svg, elem);
+                elem.parentElement.insertBefore(svg, elem);
         
             var filterDecl = 'url(#' + filterID + ')';
             elem.style['-webkit-filter'] = filterDecl;
