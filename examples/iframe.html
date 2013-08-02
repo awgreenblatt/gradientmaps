@@ -21,6 +21,7 @@ td:nth-child(2) {
   width: 70%;
   padding-left: 5px;
   padding-right: 5px;
+  padding-top: 1.2em;
 }
 
 #gradient-display {
@@ -31,8 +32,8 @@ td:nth-child(2) {
 
 
 iframe {
-    xmargin-left: 20px;
-    width: 100%;
+    width: 500px;
+    height: 280px; 
 }
 </style>
 </head>
@@ -52,9 +53,11 @@ iframe {
 			        <li><input type="button" data-gradient="black, white, black, white" onclick="doGMShortcut(this, event)" value="Double Black &amp; White"/></li>
 			        <li><input type="button" data-gradient="rgb(100, 48, 33), white" onclick="doGMShortcut(this, event)" value="Sepia"/></li>
 			        <li><input type="button" data-gradient="rgb(239, 13, 13) 10%, rgb(244, 219, 10) 90%" onclick="doGMShortcut(this, event)" value="Sunset"/></li>
-			        <li><input type="button" data-gradient="black, blue 10%, white, black, white" onclick="doGMShortcut(this, event)" value="Bizarre"/></li>
+			        <li><input type="button" data-gradient="black, blue 10%, white, black, white" onclick="doGMShortcut(this, event)" value="Icy"/></li>
       			</ul>
 
+				<button onclick="clearGradientMap()">Clear Gradient Map</button>
+				
 				<form style="margin-top: 20px" action="#">
 					<label for="colorGradient">Color Gradient: </label><br/>
 					<input type="text" size="50"  id="colorGradient"  value="black, blue 10%, white, black, white" onkeypress="stopReload(event)"/><br/>
@@ -62,22 +65,24 @@ iframe {
 				</form>
 
 				<div id="gradient-display"></div>
-
-				<sup>*</sup>Unfortunately, not all URLs will work with this demo due to security concerns.
 			</td>
-			<td>
+			<td valign="top">
 				<form action="#">
 					<label for="iFrameUrl">IFrame URL: </label>
-					<input type="text" size="100"  id="iFrameUrl" value="http://commons.wikimedia.org/wiki/File:Time-lapse_looking_down_on_42nd_and_7th_in_Times_Square.ogv?embedplayer=yes" onkeypress="stopReload(event)"/>
+					<input type="text" size="50"  id="iFrameUrl" value="http://commons.wikimedia.org/wiki/File:Time-lapse_looking_down_on_42nd_and_7th_in_Times_Square.ogv?embedplayer=yes" onkeypress="stopReload(event)"/>
 					<button onclick="reloadIFrame()" >Reload IFrame</button>
 				</form>
       
-				<iframe id="target" src="http://commons.wikimedia.org/wiki/File:Time-lapse_looking_down_on_42nd_and_7th_in_Times_Square.ogv?embedplayer=yes" width="800px" height="600px"></iframe>           
+				<iframe id="target" src="http://commons.wikimedia.org/wiki/File:Time-lapse_looking_down_on_42nd_and_7th_in_Times_Square.ogv?embedplayer=yes" width="800px" height="600px"></iframe>  
+				
+                <div>
+                    <sup>*</sup>Unfortunately, not all URLs will work with this demo due to IFrame  security concerns.
+                </div>				                  
 			</td>
 		</tr>
 	</table>
     
-    <script src="../gradientmaps.min.js"></script>
+    <script src="../gradientmaps.js"></script>
     
     <script>
         function docalc(e) {
@@ -112,9 +117,14 @@ iframe {
         
         function doGMShortcut(btn, e) {
             var gm = btn.dataset['gradient'];
-            colorGradient.value = gm;
+            document.getElementById('colorGradient').value = gm;
             docalc(e);
             e.preventDefault();
+        }
+        
+        function clearGradientMap() {
+            GradientMaps.removeGradientMap(document.getElementById('target'));
+            document.getElementById('colorGradient').value = '';
         }
         
     </script>

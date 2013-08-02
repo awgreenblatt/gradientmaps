@@ -307,7 +307,26 @@ window.GradientMaps = function(scope) {
             var colors = this.calcDistributedColors(stops, nSegs);
         
             this.addSVGComponentTransferFilter(elem, colors);
-        },  
+        },
+        
+        removeGradientMap: function(elem) {
+            var filterID = elem.getAttribute('data-gradientmap-filter');
+            if (filterID) {
+                var doc = elem.ownerDocument;
+                var filter = doc.getElementById(filterID);
+                if (filter) {
+                    var svg = filter.parentElement;
+                    svg.removeChild(filter);
+                    if (svg.childNodes.length <= 0) {
+                        var parent = svg.parentElement;
+                        parent.removeChild(svg);
+                    }
+                }
+                elem.removeAttribute('data-gradientmap-filter');
+                elem.style['-webkit-filter'] = '';
+                elem.style['filter'] = '';
+            }
+        },
     }
     
     return new GradientMaps();
