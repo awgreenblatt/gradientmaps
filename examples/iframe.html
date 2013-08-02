@@ -2,33 +2,50 @@
 <head>
 <style>
 body {
-    background-color: rgb(184, 188, 209);
-}
-#gradient-display {
-	margin: 20px auto 20px 0;
-	width: 600px;
-	height: 30px;
+    background-color: rgb(209, 207, 184);
 }
 
-td {
-   padding: 20px;
+button.apply-gradient {
+  margin: 10px auto auto 10px;
 }
+
+table {
+  width: 90%;
+}
+
+td:nth-child(1) {
+  width: 30%;
+}
+
+td:nth-child(2) {
+  width: 70%;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#gradient-display {
+    margin: 20px auto 20px auto;
+    width: 90%;
+    height: 30px;
+}
+
 
 iframe {
-    margin-left: 20px;
-    width: 90%;
+    xmargin-left: 20px;
+    width: 100%;
 }
 </style>
 </head>
 
 <body>
     <h2>Try experimenting with your own gradient maps or your own website.</h2>
+
 	<table>
 		<tr>
-			<td>
-    			<h3>Some sample gradients:</h3>
-			    <ul>
-			        <li><input type="button" data-gradient="black, white" onclick="doGMShortcut(this, event)" value="Black &amp; White"/>
+		    <td valign="top">
+				<h3>Sample gradients:</h3>
+				<ul>
+        			<li><input type="button" data-gradient="black, white" onclick="doGMShortcut(this, event)" value="Black &amp; White"/></li>
 			        <li><input type="button" data-gradient="black, gray 60%, white" onclick="doGMShortcut(this, event)" value="Black &amp; White (Darken mid-tones)"/></li>
 			        <li><input type="button" data-gradient="black 10%, white 90%" onclick="doGMShortcut(this, event)" value="High Contrast Black &amp; White"/></li>
 			        <li><input type="button" data-gradient="white, black" onclick="doGMShortcut(this, event)" value="X-Ray"/></li>
@@ -36,27 +53,29 @@ iframe {
 			        <li><input type="button" data-gradient="rgb(100, 48, 33), white" onclick="doGMShortcut(this, event)" value="Sepia"/></li>
 			        <li><input type="button" data-gradient="rgb(239, 13, 13) 10%, rgb(244, 219, 10) 90%" onclick="doGMShortcut(this, event)" value="Sunset"/></li>
 			        <li><input type="button" data-gradient="black, blue 10%, white, black, white" onclick="doGMShortcut(this, event)" value="Bizarre"/></li>
-			    </ul>
+      			</ul>
+
+				<form style="margin-top: 20px" action="#">
+					<label for="colorGradient">Color Gradient: </label><br/>
+					<input type="text" size="50"  id="colorGradient"  value="black, blue 10%, white, black, white" onkeypress="stopReload(event)"/><br/>
+					<button class="apply-gradient" onclick="docalc(event)">Apply Gradient Map to IFrame</button>
+				</form>
+
+				<div id="gradient-display"></div>
+
+				<sup>*</sup>Unfortunately, not all URLs will work with this demo due to security concerns.
 			</td>
 			<td>
-			    <form style="margin-top: 20px">
-			        <label for="colorGradient">Color Gradient: </label>
-			        <input type="text" size="100" id="colorGradient"  value="black, blue 10%, white, black, white" onkeypress="stopReload(event)"/>
-			        <button onclick="docalc(event)">Apply Gradient Map to IFrame</button>
-			    </form>
-    
-			    <div id="gradient-display"></div>
-			    <form style="margin-top: 20px">
-			        <label for="iFrameUrl">IFrame URL: </label>
-			        <input type="text" size="100" id="iFrameUrl" value="http://commons.wikimedia.org/wiki/File:Bristol_Balloon_Fiesta_ascent.ogv" onkeypress="stopReload(event)"/>
-        
-			        <input type="button" value="Reload IFrame" onclick="reloadIFrame()" />
-			    </form>
+				<form action="#">
+					<label for="iFrameUrl">IFrame URL: </label>
+					<input type="text" size="100"  id="iFrameUrl" value="http://commons.wikimedia.org/wiki/File:Time-lapse_looking_down_on_42nd_and_7th_in_Times_Square.ogv?embedplayer=yes" onkeypress="stopReload(event)"/>
+					<button onclick="reloadIFrame()" >Reload IFrame</button>
+				</form>
+      
+				<iframe id="target" src="http://commons.wikimedia.org/wiki/File:Time-lapse_looking_down_on_42nd_and_7th_in_Times_Square.ogv?embedplayer=yes" width="800px" height="600px"></iframe>           
 			</td>
 		</tr>
 	</table>
-
-	<iframe id="target" src="http://commons.wikimedia.org/wiki/File:Bristol_Balloon_Fiesta_ascent.ogv" width="800px" height="600px"></iframe>
     
     <script src="../gradientmaps.min.js"></script>
     
