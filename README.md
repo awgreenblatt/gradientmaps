@@ -2,7 +2,7 @@
 
 Javascript library that allows you to easily apply gradient maps to any HTML element on the page.
 
-Check out the blog post at: [http://blogs.adobe.com/webplatform/2013/08/06/gradientmaps-js-gradient-maps-for-html/]
+Check out the blog post at: http://blogs.adobe.com/webplatform/2013/08/06/gradientmaps-js-gradient-maps-for-html/
 
 ## Browser Support
 
