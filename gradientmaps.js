@@ -47,7 +47,7 @@ window.GradientMaps = function(scope) {
             matches.forEach(function(colorStop) {
                 var colorStopMatches = colorStop.match(/(?:((rgb|hsl)a?\(\d{1,3},\s*\d{1,3},\s*\d{1,3}(?:,\s*0?\.?\d+)?\)|\w+|#[0-9a-fA-F]{1,6})(\s+(?:0?\.\d+|\d{1,3}%))?)/);
                 if (colorStopMatches && colorStopMatches.length >= 4) {
-                    posMatch = colorStopMatches[3];
+                    var posMatch = colorStopMatches[3];
                     stops.push({
                         color: parseCSSColor(colorStopMatches[1]),
                         pos: posMatch ? parse_css_float(posMatch) * 100 : null
